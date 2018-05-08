@@ -1,3 +1,3 @@
-rootProject.name = 'ecommerce'
+rootProject.name = 'PoC'
 
 include ':app'

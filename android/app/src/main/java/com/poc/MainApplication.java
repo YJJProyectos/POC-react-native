@@ -1,4 +1,4 @@
-package com.ecommerce;
+package com.poc;
 
 import android.app.Application;
 
