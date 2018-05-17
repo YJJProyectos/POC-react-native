@@ -19,17 +19,17 @@ const RouterComponent = () => {
           drawerWidth={250}
           hideNavBar
         >
+            <Scene
+              key="product"
+              component={Product}
+              navigationBarStyle={{ backgroundColor: "green" }}
+              panHandlers={null}
+              hideNavBar={false}
+            />
           <Scene
             key="home"
             component={Home}
             navigationBarStyle={{ backgroundColor: "green" }}
-            hideNavBar={false}
-          />
-          <Scene
-            key="product"
-            component={Product}
-            navigationBarStyle={{ backgroundColor: "green" }}
-            panHandlers={null}
             hideNavBar={false}
           />
         </Drawer>
