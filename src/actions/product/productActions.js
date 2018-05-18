@@ -10,7 +10,7 @@ export const getProduct = (id) => {
   return dispatch => {
     dispatch({ type: GET_PRODUCT });
     axios
-      .get('http://www.mocky.io/v2/5af1eda2300000fd08ba8260')
+      .get('http://www.mocky.io/v2/5afeebc93200006a002230fa')
       .then(function(response) {
         getProductSuccess(dispatch, response.data);
       })
@@ -24,7 +24,11 @@ export const getProduct = (id) => {
 
 
 const getProductSuccess = (dispatch, product) => {
-  alert(JSON.stringify(product));
+  console.log("PRODUCTO ENCONTRADO: " + JSON.stringify(product));
+  
+  // alert(JSON.stringify(product));
+  console.log("ID ----- " + product.id);
+  
   dispatch({ type: GET_PRODUCT_SUCCESS, payload: product});
 };
 
