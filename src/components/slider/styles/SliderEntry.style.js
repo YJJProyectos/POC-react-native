@@ -66,34 +66,5 @@ export default StyleSheet.create({
     radiusMaskEven: {
         backgroundColor: colors.black
     },
-    textContainer: {
-        justifyContent: 'center',
-        paddingTop: 20 - entryBorderRadius,
-        paddingBottom: 20,
-        paddingHorizontal: 16,
-        backgroundColor: 'white',
-        borderBottomLeftRadius: entryBorderRadius,
-        borderBottomRightRadius: entryBorderRadius
-    },
-    textContainerEven: {
-        backgroundColor: colors.black
-    },
-    title: {
-        color: colors.black,
-        fontSize: 13,
-        fontWeight: 'bold',
-        letterSpacing: 0.5
-    },
-    titleEven: {
-        color: 'white'
-    },
-    subtitle: {
-        marginTop: 6,
-        color: colors.gray,
-        fontSize: 12,
-        fontStyle: 'italic'
-    },
-    subtitleEven: {
-        color: 'rgba(255, 255, 255, 0.7)'
-    }
+
 });

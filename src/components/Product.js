@@ -1,12 +1,20 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Linking, ActivityIndicator } from "react-native";
+import { Text, View, TouchableOpacity, Linking, ActivityIndicator, Dimensions } from "react-native";
 import { connect } from "react-redux";
 import { getProduct } from "../actions/product/productActions";
-import Carousel from 'react-native-snap-carousel';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import SliderEntry from './slider/SliderEntry';
+import styles, { colors } from './slider/styles/index.style';
+import PaginationSlider from './slider/PaginationSlider';
 
 class Product extends Component {
 
+    constructor (props) {
+        super(props);
+        this.state = {
+            sliderActiveSlide: 1
+        };
+    }
 
     componentWillMount() {
         // TODO verificar como pasar id
@@ -28,20 +36,44 @@ class Product extends Component {
             <SliderEntry data={item} />
         );
     }
+    // get pagination () {
+    //     const { sliderActiveSlide } = this.state;
+    //     console.log( "SLIDER " + sliderActiveSlide );
+        
+    //     return (
+    //         <Pagination
+    //             dotsLength={this.props.item.fotos.length}
+    //             activeDotIndex={this.state.sliderActiveSlide}
+    //             containerStyle={styles.paginationContainer}
+    //             dotColor={'rgb(12, 1, 160)'}
+    //             dotStyle={styles.paginationDot}
+    //             inactiveDotColor={colors.black}
+    //             inactiveDotOpacity={0.6}
+    //             inactiveDotScale={0.5}
+    //             carouselRef = {this._carousel}
+    //             tappableDots = {true}
+    //         />
+    //     );
+    // }
+
 
       renderProduct() {
         
-        var sliderWidth = 250;
-        var itemWidth = 240;
+        const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+        var sliderWidth = viewportWidth *0.75;
+        var itemWidth = viewportWidth * 0.9;
+        console.log("WIDTH " + viewportWidth );
+        console.log("HEIGHT " + viewportHeight );
+        
 
         return this.props.item ? (
         <View style={{flex: 1, 
         alignItems: 'center'}}>
-            <View style={ {paddingTop: 18,}} >
+            <View style={ {marginTop: 18, marginBottom: 5}} >
                 <Text style={{ fontSize: 19, color: "blue" }}>{ this.props.item.descripcionLarga}</Text>
             </View>
-            <View View style={{flex: 1, 
-            alignItems: 'center'}}>
+            <View style={{flex: 1, 
+            alignItems: 'center' }}>
                 <Carousel
                 ref={(c) => { this._carousel = c; }}
                 data={this.props.item.fotos}
@@ -54,8 +86,11 @@ class Product extends Component {
                 activeSlideAlignment = {'start'}
                 autoplay = {true}
                 autoplayDelay = {3000}
+                onSnapToItem={(index) => this.setState({ sliderActiveSlide: index }) }
                 />
-                <Text>ID { this.props.item.id }</Text> 
+                {/* { this.pagination } */}
+                <PaginationSlider _carousel={this._carousel} fotos={this.props.item.fotos} state={this.state.sliderActiveSlide} />
+                <Text>Precio ${ this.props.item.precio }</Text> 
                 <Text>Descripcion Corta { this.props.item.descripcionCorta}</Text>
                 <Text>Stock { this.props.item.stock}</Text>
             </View>
