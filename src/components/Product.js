@@ -12,7 +12,7 @@ class Product extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            sliderActiveSlide: 1
+            sliderActiveSlide: 0
         };
     }
 
@@ -82,6 +82,8 @@ class Product extends Component {
                 itemWidth={itemWidth}
                 layout = {'default'}
                 // layoutCardOffset={9}
+                lockScrollWhileSnapping = {true}
+                enableMomentum = {false}
                 loop = {true}
                 activeSlideAlignment = {'start'}
                 autoplay = {true}
@@ -98,6 +100,7 @@ class Product extends Component {
 
       comprar() {
         alert('comprar');
+        console.log('item ' + this.props);
       }
     
       renderInfo() {
@@ -117,10 +120,37 @@ class Product extends Component {
             </ScrollView>
             <View>
                 <TouchableNativeFeedback
-                onPress={this.comprar}
+                onPress={() => {
+                    // alert('comprar');
+                    console.log('ID ' + this.props.item.id);
+                    var url;
+                    if ( Math.round(Math.random())  == 1 ) {
+                        url = 'http://www.mocky.io/v2/5af1ee753000005518ba8261';
+                    } else {
+                        url = 'http://www.mocky.io/v2/5af1ee903000004814ba8263';
+                    }
+
+                    fetch(url, {
+                        method : 'GET'
+                    })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                       console.log(responseJson);
+                       if ( responseJson.estado == 1) {
+                           alert('Error en la compra \n' + responseJson.motivo);
+                       } else {
+                           alert('Agregado al carro');
+                       }
+                    })
+                    .catch( (error) => {
+                        console.error(error);
+                    } )
+
+                }}
+                // onPress = {this.comprar}
                 background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
                 <View style={{marginBottom: 5,
-                                width: Dimensions.get('window').width ,
+                                width: Dimensions.get('window').width * 0.95,
                                 marginTop: 5,
                                 alignItems: 'center',
                                 backgroundColor: '#2196F3' }}>
