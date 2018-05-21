@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Linking, ActivityIndicator, Dimensions } from "react-native";
+import { Text, View, TouchableOpacity, Linking, ActivityIndicator, Dimensions, ScrollView,TouchableNativeFeedback, Platform } from "react-native";
 import { connect } from "react-redux";
 import { getProduct } from "../actions/product/productActions";
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -90,15 +90,47 @@ class Product extends Component {
                 />
                 {/* { this.pagination } */}
                 <PaginationSlider _carousel={this._carousel} fotos={this.props.item.fotos} state={this.state.sliderActiveSlide} />
-                <Text>Precio ${ this.props.item.precio }</Text> 
-                <Text>Descripcion Corta { this.props.item.descripcionCorta}</Text>
-                <Text>Stock { this.props.item.stock}</Text>
-            </View>
-            <View>
             </View>
         </View>
         ) : null
 
+      }
+
+      comprar() {
+        alert('comprar');
+      }
+    
+      renderInfo() {
+        if ( this.props.item ) {
+            return (
+        <View style={{flex: 1, alignItems: 'center'}}>
+                <Text style={{ fontSize: 19, color: "green", paddingBottom
+            : 3 }} >Precio ${ this.props.item.precio }</Text> 
+            <ScrollView>
+                <View style={{          alignItems: 'center'}}>
+                <Text>Descripcion Corta { this.props.item.descripcionCorta}</Text>
+                <Text>Stock { this.props.item.stock}</Text>
+                <Text>bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+
+                </Text>
+                </View>
+            </ScrollView>
+            <View>
+                <TouchableNativeFeedback
+                onPress={this.comprar}
+                background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
+                <View style={{marginBottom: 5,
+                                width: Dimensions.get('window').width ,
+                                marginTop: 5,
+                                alignItems: 'center',
+                                backgroundColor: '#2196F3' }}>
+                    <Text style={{padding: 20,color: 'white' }}>Comprar</Text>
+                </View>
+                </TouchableNativeFeedback>
+            </View>
+        </View>
+            )
+        }  
       }
 
     render() {
@@ -116,6 +148,7 @@ class Product extends Component {
                     <Text style={issuerTextStyle}>{item.id}</Text>
                 </TouchableOpacity>
                 ))} */}
+                { this.renderInfo() }
             </View>
         )
     }
